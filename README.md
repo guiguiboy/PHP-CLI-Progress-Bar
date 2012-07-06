@@ -2,7 +2,7 @@ PHP-CLI-Progress-Bar
 ====================
 
 A PHP5 CLI Progress bar
-Version 0.1a
+Version 0.11a
 
 Requirements
 ============
@@ -12,27 +12,27 @@ PHP > 5.3
 How it works
 ============
 
-There are 2 classes ProgressBar and ProgressBarRegistry.
+There is one namespace ProgressBar that coçntains 2 classes Manager and Registry.
 
-ProgressBar is responsible to manage the output of the progress bar. Each instance of this class is associated with a 
-ProgressBarRegistry. Each time the ProgressBar needs to keep a metric, 
-it is stored in this object.
+Manager is responsible to manage the progress bar. Each instance of this class is associated with a 
+Registry object. Each time the Manager needs to keep a metric, it is stored in this object.
 
 When the display is requested, the script uses the string format and iterates over 
 all replacement rules. Replacement are handled by closures.
 
-The progress bar has the following default output
+The progress bar has the following default output : 
 %current%/%max% [%bar%] %percent%% %eta%
 
-Feel free to change the template.
-Buit-in variables are : 
+It is configurable. You can also change it while processing your batch script.
+
+Buit-in variable replacement are : 
 * %current% : the current element
 * %max% : the number of elements
 * %bar% : the progress bar
 * %percent% : the advancement in percent
 * %eta% : estimation of the remaining
 
-Constructor arguments :
+Manager constructor arguments :
 * current : the initial step
 * max : the amount of steps in your process
 * width : the max width of the line (default : 80)
@@ -47,17 +47,14 @@ Examples
 Add include statements at the beginning of your script
 
 <?php
-require_once 'src/ProgressBar.php';
-require_once 'src/ProgressBarRegistry.php';
+require_once 'ProgressBar/Manager.php';
+require_once 'ProgressBar/Registry.php';
 
-
-Echo a sample progress bar
-
-$progressBar = new ProgressBar(0, 10);
+$progressBar = new \ProgressBar\Manager(0, 10);
 
 for ($i = 0; $i <= 10; $i++)
 {
-    $progressBar->update($i);	
+    $progressBar->update($i);
     sleep(3);
 }
 
@@ -77,29 +74,42 @@ Will output :
 Extending
 =========
 
-You may add your custom variables for replacement.
-Keep in mind that the length of the progress bar is evaluated at the end so that the width will never exceed the limit.
-So keeping the %bar% at the end is a good practice.
+Adding custom replacement rules
+-------------------------------
+
+You may add your custom variables for replacement. You have to use the method addReplacementRule and specify a priority, a tag and a closure.
+Keep in mind that the length of the progress bar is evaluated at the end so that the output width will scale up to the width you specified.
+So keeping the %bar% with a high priority is a good practice.
 
 Here is an example of what you should do if you want to add a new replacement rule.
 
 <?php
 
-class MyProgressBar extends ProgressBar
-{
-	protected function getReplacementsRules()
-    {
-    	return array_merge(parent::getReplacementsRules(), array(
-    		'%foo%' => function ($buffer, $registry) {return 'OK!';}
-    		});
-    }
-}
+use ProgresBar;
 
-$pb = new MyProgressBar(0, 213);
+$pb = new Manager(0, 213);
 $pb->setFormat('Progress : %current%/%max% [%bar%] %foo%');
+$pb->addReplacementRule('%foo%', 70, function ($buffer, $registry) {return 'OK!';});
 $pb->update(1);
 
 Will echo 
 
 1/10 [>----------------------------------------------] OK!
 
+
+
+ChangeLog
+=========
+
+0.1a -> 0.11a
+-------------
+* Changed directory structure to add namespace
+* Changed priority behavior
+* Added new public method addReplacementRule so that you don't need to extend the manager to add custom replacement rules
+
+TODO
+====
+
+* add unit tests
+* add composer support
+* ask developpers for feedback

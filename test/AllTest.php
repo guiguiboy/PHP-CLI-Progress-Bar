@@ -2,6 +2,7 @@
 
 class AllTest
 {
-	
-	//add unit test classes here
+    public $testClasses = array(
+        ''
+    );
 }
