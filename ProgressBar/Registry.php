@@ -1,9 +1,8 @@
 <?php
-
 namespace ProgressBar;
 
 /**
- * ProgressBarRegistry is a registry class that stores metrics for the progress bar
+ * ProgressBar\Registry is a registry class that stores metrics for the progress bar
  */
 class Registry
 {
@@ -28,12 +27,12 @@ class Registry
      * 
      * @param string $key
      * @return mixed
-     * @throws Exception
+     * @throws \RunTimeException
      */
     public function getValue($key)
     {
       if (!isset($this->registry[$key]))
-        throw new Exception('Invalid offset requested');
+        throw new \RunTimeException('Invalid offset requested');
 
       return $this->registry[$key];
     }
