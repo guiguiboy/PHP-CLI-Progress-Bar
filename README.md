@@ -2,12 +2,12 @@ PHP-CLI-Progress-Bar
 ====================
 
 A PHP5 CLI Progress bar
-Version 0.11a
+Version 0.0.2
 
 Requirements
 ============
 
-PHP > 5.3
+PHP >= 5.3
 
 How it works
 ============
@@ -101,7 +101,7 @@ Will echo
 ChangeLog
 =========
 
-0.1a -> 0.11a
+0.0.1 -> 0.0.2
 -------------
 * Changed directory structure to add namespace
 * Changed priority behavior
