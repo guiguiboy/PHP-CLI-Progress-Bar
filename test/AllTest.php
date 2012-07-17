@@ -4,6 +4,7 @@ class AllTest
 {
     public static $testClasses = array(
         '\ProgressBar\Test\RegistryTest',
+        '\ProgressBar\Test\ManagerTest',
     );
     
     /**

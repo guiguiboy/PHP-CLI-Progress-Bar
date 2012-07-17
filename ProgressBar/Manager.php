@@ -153,10 +153,10 @@ EOF;
     public function update($current)
     {
         if (!is_int($current))
-            throw new Exception('Integer as current counter was expected');
+            throw new \RuntimeException('Integer as current counter was expected');
 
         if ($this->registry->getValue('current') > $current)
-            throw new Exception('Could not set lower current counter');
+            throw new \RuntimeException('Could not set lower current counter');
 
         $advancement           = $this->registry->getValue('advancement');
         $advancement[$current] = time();
