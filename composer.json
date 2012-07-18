@@ -9,8 +9,10 @@
         }
     ],
     "require": {
-
+		"php": ">=5.3.0"
     },
+    "homepage": "https://github.com/guiguiboy/PHP-CLI-Progress-Bar",
+    "keywords": ["cli", "command-line", "progress", "bar"],
     "autoload": {
         "psr-0": {
             "ProgressBar" : "."
