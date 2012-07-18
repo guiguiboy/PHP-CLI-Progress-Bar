@@ -1,6 +1,6 @@
 {
     "name": "guiguiboy/php-cli-progress-bar",
-    "version": "0.0.2",
+    "version": "0.0.3",
     "description": "Progress bar for PHP CLI scripts",
     "authors": [
         {

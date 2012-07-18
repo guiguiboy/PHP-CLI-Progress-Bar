@@ -12,13 +12,13 @@ PHP >= 5.3
 How it works
 ============
 
-There is one namespace ProgressBar that coçntains 2 classes Manager and Registry.
+There is one namespace ProgressBar that contains 2 classes Manager and Registry.
 
 Manager is responsible to manage the progress bar. Each instance of this class is associated with a 
 Registry object. Each time the Manager needs to keep a metric, it is stored in this object.
 
 When the display is requested, the script uses the string format and iterates over 
-all replacement rules. Replacement are handled by closures.
+all replacement rules. Replacements are handled by closures.
 
 The progress bar has the following default output : 
 %current%/%max% [%bar%] %percent%% %eta%
@@ -101,15 +101,17 @@ Will echo
 ChangeLog
 =========
 
+0.0.2 -> 0.0.3
+--------------
+* Added composer support
+* Added unit tests for the Manager and the registry
+
 0.0.1 -> 0.0.2
--------------
+--------------
 * Changed directory structure to add namespace
 * Changed priority behavior
 * Added new public method addReplacementRule so that you don't need to extend the manager to add custom replacement rules
 
 TODO
 ====
-
-* add unit tests
-* add composer support
 * ask developpers for feedback
