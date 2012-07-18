@@ -2,7 +2,7 @@ PHP-CLI-Progress-Bar
 ====================
 
 A PHP5 CLI Progress bar
-Version 0.0.2
+Version 0.0.3
 
 Requirements
 ============
