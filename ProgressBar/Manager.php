@@ -47,6 +47,26 @@ EOF;
     }
 
     /**
+     * Sets a Registry
+     * 
+     * @param Registry $registry
+     */
+    public function setRegistry(Registry $registry)
+    {
+    	$this->registry = $registry;
+    }
+    
+    /**
+     * Returns the Registry
+     * 
+     * @return Registry
+     */
+    public function getRegistry()
+    {
+    	return $this->registry;
+    }
+
+    /**
      * Returns the current output format
      *
      * @return string
@@ -90,8 +110,14 @@ EOF;
             $seconds               = ($timeForCurrent - $initialTime);
             $percent               = ($registry->getValue('current') * 100) / $registry->getValue('max');
             $estimatedTotalSeconds = intval($seconds * 100 / $percent);
-            $dateInterval          = new \DateInterval(sprintf('PT%sS', $estimatedTotalSeconds - $seconds));
-            return $dateInterval->format('%H:%I:%s');
+
+            $estimatedSecondsToEnd = $estimatedTotalSeconds - $seconds;
+            $hoursCount            = intval($estimatedSecondsToEnd / 3600);
+            $rest                  = ($estimatedSecondsToEnd % 3600);
+            $minutesCount          = intval($rest / 60);
+            $secondsCount          = ($rest % 60);
+            
+            return sprintf("%02d:%02d:%02d", $hoursCount, $minutesCount, $secondsCount);
         });
         $this->addReplacementRule('%bar%', 500, function ($buffer, $registry)  
         {

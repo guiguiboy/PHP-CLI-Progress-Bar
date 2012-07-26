@@ -42,10 +42,10 @@ class ManagerTest extends \PHPUnit_Framework_TestCase
     {
     	$manager = new Manager(0, 10);
 	    $manager->update(3);
-	    $this->assertEquals("3/10 [===============>-------------------------------------] 30.00% 00:00:0\r", ob_get_contents());
+	    $this->assertEquals("3/10 [===============>------------------------------------] 30.00% 00:00:00\r", ob_get_contents());
 	    ob_clean();
 	    $manager->update(10);
-	    $this->assertEquals("10/10 [===================================================>] 100.00% 00:00:0\n", ob_get_contents());
+	    $this->assertEquals("10/10 [==================================================>] 100.00% 00:00:00\n", ob_get_contents());
     }
 
     /**
@@ -92,5 +92,18 @@ class ManagerTest extends \PHPUnit_Framework_TestCase
     	$manager = new Manager(0, 10, 120);
     	$manager->update(1);
     	$this->assertTrue(120 >= strlen(ob_get_contents()));
+    }
+
+    /**
+     * Tests ETA
+     */
+    public function testEta()
+    {
+    	$manager = new Manager(0, 10, 120);
+    	$manager->setFormat('%eta%');
+    	$advancement = array(0 => time() - 2);
+    	$manager->getRegistry()->setValue('advancement', $advancement);
+    	$manager->update(1);
+    	$this->assertEquals("00:00:18\r", ob_get_contents());
     }
 }
