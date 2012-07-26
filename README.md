@@ -41,10 +41,13 @@ Manager constructor arguments :
 * currentPositionCharacter : a character to identify the current position in the progress bar (default : >)
 
 
-Examples
+How to use
 ==========
 
-Add include statements at the beginning of your script
+Quick start
+-----------
+
+Add include statements at the beginning of your script (if you don't have autoloaders)
 
 ```php
 <?php
@@ -56,15 +59,21 @@ $progressBar = new \ProgressBar\Manager(0, 10);
 for ($i = 0; $i <= 10; $i++)
 {
     $progressBar->update($i);
-    sleep(3);
+    sleep(1);
 }
 ```
 
 Will output : 
 
-1/10 [>----------------------------------------------] 0.00% Calculating...
+1/10 [===>----------------------------------------------] 10.00% 00:00:09
 
-Changing the output : 
+
+Configuration
+-------------
+
+### Changing the output ###
+
+Use the setFormat() method : 
 
 ```php
 $progressBar->setFormat('%current% |%bar%| %max%');
@@ -74,6 +83,35 @@ $progressBar->update(1);
 Will output : 
 
 1|>-------------------------------------------------------------------| 10
+
+
+### Changing the max length ###
+
+The max length is specified in the constructor :  
+ 
+```php
+$pb = new \ProgressBar\Manager(0, 20, 120);
+$progressBar->update(1);
+```
+
+
+Will output :
+
+1/20 [====>----------------------------------------------------------------------------------------] 5.00% 00:00:00
+
+
+### Changing the progress bar style ###
+
+Use the parameters specified in the constructor : 
+
+```php
+$pb = new \ProgressBar\Manager(0, 20, 120, '-', ' ', ')');
+$pb->update(5);
+```
+
+Will output :
+
+5/20 [-----------------------)                                                                    ] 25.00% 00:00:00
 
  
 Extending
@@ -101,8 +139,7 @@ $pb->update(1);
 
 Will echo : 
 
-1/10 [>----------------------------------------------] OK!
-
+Progress : 1/213 [>---------------------------------------------------] OK!
 
 
 ChangeLog
