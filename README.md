@@ -46,6 +46,7 @@ Examples
 
 Add include statements at the beginning of your script
 
+```php
 <?php
 require_once 'ProgressBar/Manager.php';
 require_once 'ProgressBar/Registry.php';
@@ -57,14 +58,18 @@ for ($i = 0; $i <= 10; $i++)
     $progressBar->update($i);
     sleep(3);
 }
+```
 
-Will output 
+Will output : 
+
 1/10 [>----------------------------------------------] 0.00% Calculating...
 
 Changing the output : 
 
+```php
 $progressBar->setFormat('%current% |%bar%| %max%');
 $progressBar->update(1);
+```
 
 Will output : 
 
@@ -83,6 +88,7 @@ So keeping the %bar% with a high priority is a good practice.
 
 Here is an example of what you should do if you want to add a new replacement rule.
 
+```php
 <?php
 
 use ProgresBar;
@@ -91,8 +97,9 @@ $pb = new Manager(0, 213);
 $pb->setFormat('Progress : %current%/%max% [%bar%] %foo%');
 $pb->addReplacementRule('%foo%', 70, function ($buffer, $registry) {return 'OK!';});
 $pb->update(1);
+```
 
-Will echo 
+Will echo : 
 
 1/10 [>----------------------------------------------] OK!
 
