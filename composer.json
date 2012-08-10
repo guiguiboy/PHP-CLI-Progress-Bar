@@ -4,8 +4,8 @@
     "description": "Progress bar for PHP CLI scripts",
     "authors": [
         {
-            "name": "Guiguiboy",
-            "email": "gbretou@example.com"
+            "name": "Guillaume",
+            "email": "guillaume.bretou@gmail.com"
         }
     ],
     "require": {
