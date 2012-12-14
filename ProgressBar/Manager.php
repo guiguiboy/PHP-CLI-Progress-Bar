@@ -166,8 +166,30 @@ EOF;
             }
         }
 
+        $buffer = $this->clearRightCharacters($buffer);
+
         $eolCharacter = ($lineReturn) ? "\n" : "\r";
         echo "$buffer$eolCharacter";
+    }
+
+    /**
+     * Clears line remaining characters so that buffer length always equals
+     * to max width.
+     * registry->getValue('width') -1 stands for the control character \r or \n
+     * that will be added to the buffer.
+     * 
+     * @param string $buffer
+     * @return string
+     */
+    protected function clearRightCharacters($buffer)
+    {
+        $len = mb_strlen($buffer);
+        while ($len < $this->registry->getValue('width') - 1)
+        {
+            $buffer .= ' ';
+            $len = mb_strlen($buffer);
+        }
+        return $buffer;
     }
 
     /**

@@ -42,10 +42,10 @@ class ManagerTest extends \PHPUnit_Framework_TestCase
     {
     	$manager = new Manager(0, 10);
 	    $manager->update(3);
-	    $this->assertEquals("3/10 [===============>------------------------------------] 30.00% 00:00:00\r", ob_get_contents());
+	    $this->assertEquals("3/10 [===============>------------------------------------] 30.00% 00:00:00    \r", ob_get_contents());
 	    ob_clean();
 	    $manager->update(10);
-	    $this->assertEquals("10/10 [==================================================>] 100.00% 00:00:00\n", ob_get_contents());
+	    $this->assertEquals("10/10 [==================================================>] 100.00% 00:00:00   \n", ob_get_contents());
     }
 
     /**
@@ -80,7 +80,7 @@ class ManagerTest extends \PHPUnit_Framework_TestCase
     	$manager->addReplacementRule('%foo%', 100, function ($buffer, $registry){return 'FOO!';});
     	$manager->setFormat('%foo%');
     	$manager->update(1);
-    	$this->assertEquals("FOO!\r", ob_get_contents());
+    	$this->assertRegexp("/FOO!\s+\\r/", ob_get_contents());
     }
 
     /**
@@ -104,6 +104,6 @@ class ManagerTest extends \PHPUnit_Framework_TestCase
     	$advancement = array(0 => time() - 2);
     	$manager->getRegistry()->setValue('advancement', $advancement);
     	$manager->update(1);
-    	$this->assertEquals("00:00:18\r", ob_get_contents());
+    	$this->assertRegExp("/00:00:18\s+\\r/", ob_get_contents());
     }
 }
