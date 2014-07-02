@@ -49,8 +49,19 @@ class ManagerTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
+     * Tests the situation when the value given to progressbar is greater than the manager size.
+     *
+     * @expectedException \InvalidArgumentException
+     */
+    public function testProgressOverflow()
+    {
+        $manager = new Manager(0, 10);
+        $manager->update(11);
+    }
+
+    /**
      * Tests that a lower increment throws an InvalidArgumentException
-     * 
+     *
      * @expectedException \InvalidArgumentException
      */
     public function testLowerIncrementThrowsException()
