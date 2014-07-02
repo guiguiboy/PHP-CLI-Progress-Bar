@@ -49,9 +49,9 @@ class ManagerTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * Tests that a lower increment throws a RuntimeException
+     * Tests that a lower increment throws an InvalidArgumentException
      * 
-     * @expectedException RuntimeException
+     * @expectedException \InvalidArgumentException
      */
     public function testLowerIncrementThrowsException()
     {
@@ -61,9 +61,9 @@ class ManagerTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * Tests that a non integer increment throws a RuntimeException
+     * Tests that a non integer increment throws an InvalidArgumentException
      * 
-     * @expectedException RuntimeException
+     * @expectedException \InvalidArgumentException
      */
     public function testNonIntegerIncrementThrowsException()
     {
