@@ -60,8 +60,23 @@ class ManagerTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
+     * Tests the advance method.
+     * Advancing the progress bar should make one step further.
+     */
+    public function testAdvance()
+    {
+        $manager = new Manager(0, 10);
+        $manager->advance();
+        $this->assertEquals("1/10 [=====>----------------------------------------------] 10.00% 00:00:00    \r", ob_get_contents());
+        $manager->update(3);
+        ob_clean();
+        $manager->advance();
+        $this->assertEquals("4/10 [====================>-------------------------------] 40.00% 00:00:00    \r", ob_get_contents());
+    }
+
+    /**
      * Tests that a lower increment throws an InvalidArgumentException
-     *
+     * 
      * @expectedException \InvalidArgumentException
      */
     public function testLowerIncrementThrowsException()

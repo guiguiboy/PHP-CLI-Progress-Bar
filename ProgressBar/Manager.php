@@ -218,4 +218,12 @@ EOF;
 
         $this->display($lineReturn);
     }
+
+    /**
+     * Advances the progress bar with one step.
+     */
+    public function advance()
+    {
+        $this->update($this->registry->getValue('current') + 1);
+    }
 }
