@@ -201,10 +201,14 @@ EOF;
     public function update($current)
     {
         if (!is_int($current))
-            throw new \RuntimeException('Integer as current counter was expected');
+            throw new \InvalidArgumentException('Integer as current counter was expected');
 
         if ($this->registry->getValue('current') > $current)
-            throw new \RuntimeException('Could not set lower current counter');
+            throw new \InvalidArgumentException('Could not set lower current counter');
+
+        if($this->registry->getValue('max') < $current)
+            throw new \InvalidArgumentException('Could not set the progress value ' . $current .
+                ' because the max is ' . $this->registry->getValue('max'));
 
         $advancement           = $this->registry->getValue('advancement');
         $advancement[$current] = time();
@@ -213,5 +217,13 @@ EOF;
         $lineReturn = ($current == $this->registry->getValue('max'));
 
         $this->display($lineReturn);
+    }
+
+    /**
+     * Advances the progress bar with one step.
+     */
+    public function advance()
+    {
+        $this->update($this->registry->getValue('current') + 1);
     }
 }

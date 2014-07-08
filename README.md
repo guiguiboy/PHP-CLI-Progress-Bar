@@ -67,6 +67,15 @@ Will output :
 
 1/10 [===>----------------------------------------------] 10.00% 00:00:09
 
+When you want to iterate over a collection, you don't event need to track the counter:
+
+```php
+foreach ($array as $element)
+{
+    // process element
+    $progressBar->advance();
+}
+```
 
 Configuration
 -------------
@@ -144,6 +153,12 @@ Progress : 1/213 [>---------------------------------------------------] OK!
 
 ChangeLog
 =========
+
+0.0.3 -> 0.0.4
+--------------
+* Changed RuntimeExceptions to InvalidArgumentExceptions
+* Added advance() method for incrementing the progress bar
+* Forbid to set the progress value greater than expected
 
 0.0.2 -> 0.0.3
 --------------
